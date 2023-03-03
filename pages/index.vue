@@ -5,7 +5,7 @@
     <div class="relative">
       <img src="/images/bg-sidebar-desktop.svg" alt="">
       <div class="absolute top-0 left-0 bottom-0 right-0 flex flex-col gap-7 px-8 pt-9">
-        <div v-for="(step, index) in steps" :key="index" class="flex gap-4 items-center">
+        <div v-for="(step, index) in Steps.keys()" :key="index" class="flex gap-4 items-center">
           <div
               :class="{
                   'text-light-gray bg-transparent': activeStep !== index+1,
@@ -23,17 +23,20 @@
     </div>
 
 
-    <div class="flex-1 px-24 py-8 flex flex-col">
-      <StepOne/>
+    <div class="flex-1 sm:px-40 md:px-6 lg:px-24 py-8 flex flex-col">
+      <transition name="v" mode="out-in">
+        <component v-bind:is="Steps.get(StepKeys[activeStep - 1])" :key="activeStep"/>
+      </transition>
+
       <div class="mt-auto flex">
         <button @click="activeStep--" class="text-marine-blue h-12 px-6 outline-none font-medium mr-auto"
                 v-if="activeStep > 1">
           Go Back
         </button>
-
         <button v-if="activeStep < 4"
                 class="bg-marine-blue text-gray-50 h-12 outline-none px-6 rounded-lg font-medium ml-auto"
-                @click="activeStep++">Next Step
+                @click="activeStep++">
+          Next Step
         </button>
         <button v-if="activeStep === 4"
                 class="bg-purplish-blue text-gray-50 h-12 outline-none px-6 rounded-lg font-medium ml-auto">
@@ -48,10 +51,14 @@
 
 </template>
 <script setup>
+const StepKeys = ['Your Info', 'Select Plan', 'Add-Ons', 'Summary'];
 
-import StepOne from '../components/step-one';
+const Steps = new Map()
+    .set('Your Info', resolveComponent('step-one'))
+    .set('Select Plan', resolveComponent('step-two'))
+    .set('Add-Ons', resolveComponent('step-three'))
+    .set('Summary', resolveComponent('step-for'))
 
-const steps = ['Your Info', 'Select Plan', 'Add-Ons', 'Summary'];
 const activeStep = ref(1)
 const form = useState('form', () => ({
   name: '',
@@ -68,3 +75,15 @@ watch(activeStep, (v) => {
 })
 
 </script>
+
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

@@ -38,8 +38,9 @@
 
 <script setup lang="ts">
 
-import {useState} from "#imports";
+import {definePageMeta, useState} from "#imports";
 
+definePageMeta({name: 'StepOne'})
 const form = useState('form')
 </script>
 

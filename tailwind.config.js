@@ -11,7 +11,7 @@ module.exports = {
                 'cool-gray': '#9699ab',
                 'light-gray': '#d6d9e6',
                 'magnolia': '#f0f6ff',
-                'alabaster': '#fafbff',
+                'alabaster': '#f2f5fa',
             }
         }, fontFamily: {
             ubuntu: ['Ubuntu', 'sans-serif']

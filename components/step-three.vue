@@ -50,7 +50,7 @@ const addons = [
   {
     name: 'Customizable profile',
     comment: 'Custom theme on your profile',
-    monthly: 1,
+    monthly: 2,
     yearlyOffer: 2
   }
 

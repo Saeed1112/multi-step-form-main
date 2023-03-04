@@ -12,8 +12,8 @@
       <div class="flex gap-3">
         <div
             class="border border-purplish-blue flex-1 py-5 px-5 rounded-lg hover:bg-purplish-blue hover:bg-opacity-5 cursor-pointer"
-            :class="{'bg-purplish-blue bg-opacity-10': form.plan === plan.name}"
-            @click="form.plan = plan.name"
+            :class="{'bg-purplish-blue bg-opacity-10': form.plan.name === plan.name}"
+            @click="form.plan = plan"
             v-for="plan in plans">
           <img :src="plan.icon" :alt="`Plan - ${plan.name}`">
 

@@ -8,8 +8,8 @@
         <div v-for="(step, index) in Steps.keys()" :key="index" class="flex gap-4 items-center">
           <div
               :class="{
-                  'text-light-gray bg-transparent': activeStep !== index+1,
-                  'text-gray-900 bg-light-blue': activeStep === index+1
+                  'text-light-gray bg-transparent': form.activeStep !== index+1,
+                  'text-gray-900 bg-light-blue': form.activeStep === index+1
                 }"
               class="h-8 aspect-square border border-light-gray text-sm rounded-full flex items-center justify-center font-bold"
               v-text="index+1"/>
@@ -25,21 +25,22 @@
 
     <div class="flex-1 sm:px-40 md:px-6 lg:px-24 py-8 flex flex-col">
       <transition name="v" mode="out-in">
-        <component v-bind:is="Steps.get(StepKeys[activeStep - 1])" :key="activeStep"/>
+        <component v-bind:is="Steps.get(StepKeys[form.activeStep - 1])" :key="form.activeStep" v-if="!form.finish"/>
+        <step-five v-else/>
       </transition>
 
-      <div class="mt-auto flex">
-        <button @click="activeStep--"
+      <div class="mt-auto flex" v-if="!form.finish">
+        <button @click="form.activeStep--"
                 class="text-marine-blue h-12 px-6 text-opacity-50 hover:text-opacity-100 outline-none font-medium mr-auto"
-                v-if="activeStep > 1">
+                v-if="form.activeStep > 1">
           Go Back
         </button>
-        <button v-if="activeStep < 4"
+        <button v-if="form.activeStep < 4"
                 class="bg-marine-blue text-gray-50 h-12 outline-none px-6 rounded-lg font-medium ml-auto"
                 @click="nextStep">
           Next Step
         </button>
-        <button v-if="activeStep === 4"
+        <button v-if="form.activeStep === 4" @click="form.finish = true"
                 class="bg-purplish-blue text-gray-50 h-12 outline-none px-6 rounded-lg font-medium ml-auto">
           Confirm
         </button>
@@ -61,25 +62,21 @@ const Steps = new Map()
     .set('Add-Ons', resolveComponent('step-three'))
     .set('Summary', resolveComponent('step-for'))
 
-const activeStep = ref(1)
 const form = useState('form', () => ({
+  activeStep: 1,
   name: '',
   email: '',
   phone: '',
   plan: 0,
   yearly: false,
   addons: new Map(),
-  errors: new Map()
+  errors: new Map(),
+  finish: false,
 }))
-
-watch(activeStep, (v) => {
-  console.log(v)
-})
-
 
 function nextStep() {
   form.value.errors.clear();
-  switch (activeStep.value) {
+  switch (form.value.activeStep) {
     case 1 : {
       const {name, email, phone} = form.value;
       if (!name || name.length < 4)
@@ -93,7 +90,7 @@ function nextStep() {
 
 
       if (form.value.errors.size > 0) break;
-      activeStep.value++;
+      form.value.activeStep++;
 
       break;
     }
@@ -102,10 +99,17 @@ function nextStep() {
       if (!plan)
         form.value.errors.set('plan', 'Please choose a plan!')
       if (form.value.errors.size > 0) return;
-      activeStep.value++;
+      form.value.activeStep++;
       break;
     }
-
+    case 3 : {
+      form.value.activeStep++;
+      break;
+    }
+    case 4: {
+      form.value.finish = true;
+      break;
+    }
   }
 }
 

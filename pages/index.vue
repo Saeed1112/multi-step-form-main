@@ -6,7 +6,7 @@
     <div class="md:relative">
       <img src="/images/bg-sidebar-desktop.svg" class="md:block hidden" alt="">
       <img src="/images/bg-sidebar-mobile.svg"
-           class="fixed left-0 right-0 object-cover w-full top-0 md:hidden bg-green-500" alt="">
+           class="fixed left-0 right-0 object-cover w-full top-0 md:hidden max-h-60" alt="">
       <div
           class="absolute top-0 left-0 md:bottom-0 right-0 flex flex-row md:flex-col gap-5 md:gap-7 px-8 pt-9 md:justify-start justify-center">
         <div v-for="(step, index) in Steps.keys()" :key="index" class="flex gap-4 items-center">

@@ -4,10 +4,8 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss'
     ],
-    ssr: false,
     app: {
         head: {
-
             htmlAttrs: {
                 lang: 'en'
             },
@@ -18,7 +16,8 @@ export default defineNuxtConfig({
                     rel: 'stylesheet'
                 },
                 {href: 'https://fonts.gstatic.com', crossorigin: 'anonymous', rel: 'preconnect'},
-                {href: 'https://fonts.googleapis.com', crossorigin: 'anonymous', rel: 'preconnect'}
+                {href: 'https://fonts.googleapis.com', crossorigin: 'anonymous', rel: 'preconnect'},
+                {href: '/favicon.png', rel: 'icon', type: 'image/png'}
             ]
         }
     }

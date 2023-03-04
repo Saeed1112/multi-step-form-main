@@ -12,7 +12,7 @@
                 v-text="form.errors.get('name')"/>
         </span>
         <input v-model="form.name"
-               class="block w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
+               class="block focus:border-purplish-blue w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
                :class="{'border-strawberry-red':form.errors.get('phone') }"
                type="text" placeholder="e.g. Saeed Akhshijan">
       </label>
@@ -25,7 +25,7 @@
         </span>
         <input v-model="form.email"
                :class="{'border-strawberry-red':form.errors.get('phone') }"
-               class="block w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
+               class="block focus:border-purplish-blue w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
                type="email" placeholder="e.g. sakhshijan@gmail.com">
       </label>
 
@@ -38,7 +38,7 @@
         </span>
         <input v-model="form.phone"
                :class="{'border-strawberry-red':form.errors.get('phone') }"
-               class="block w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
+               class="focus:border-purplish-blue block w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
                type="tel" placeholder="e.g. +1 234 567 890">
       </label>
     </div>

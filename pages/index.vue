@@ -29,13 +29,14 @@
       </transition>
 
       <div class="mt-auto flex">
-        <button @click="activeStep--" class="text-marine-blue h-12 px-6 outline-none font-medium mr-auto"
+        <button @click="activeStep--"
+                class="text-marine-blue h-12 px-6 text-opacity-50 hover:text-opacity-100 outline-none font-medium mr-auto"
                 v-if="activeStep > 1">
           Go Back
         </button>
         <button v-if="activeStep < 4"
                 class="bg-marine-blue text-gray-50 h-12 outline-none px-6 rounded-lg font-medium ml-auto"
-                @click="activeStep++">
+                @click="nextStep">
           Next Step
         </button>
         <button v-if="activeStep === 4"
@@ -44,6 +45,7 @@
         </button>
       </div>
 
+      <pre class="text-xs absolute bottom-2 left-2" v-text="form"></pre>
     </div>
 
 
@@ -65,14 +67,48 @@ const form = useState('form', () => ({
   email: '',
   phone: '',
   plan: 0,
-  yearly: true,
-  addons: [],
+  yearly: false,
+  addons: new Map(),
   errors: new Map()
 }))
 
 watch(activeStep, (v) => {
   console.log(v)
 })
+
+
+function nextStep() {
+  form.value.errors.clear();
+  switch (activeStep.value) {
+    case 1 : {
+      const {name, email, phone} = form.value;
+      if (!name || name.length < 4)
+        form.value.errors.set('name', 'Name must be more than 4 characters');
+
+      if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
+        form.value.errors.set('email', 'Please enter a valid email address');
+
+      if (!phone.match(/^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/))
+        form.value.errors.set('phone', 'Please enter a valid phone number');
+
+
+      if (form.value.errors.size > 0) break;
+      activeStep.value++;
+
+      break;
+    }
+    case 2 : {
+      const {plan} = form.value
+      if (!plan)
+        form.value.errors.set('plan', 'Please choose a plan!')
+      if (form.value.errors.size > 0) return;
+      activeStep.value++;
+      break;
+    }
+
+  }
+}
+
 
 </script>
 

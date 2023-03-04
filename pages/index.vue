@@ -1,10 +1,14 @@
 <template>
 
-  <div class="my-auto bg-white w-[58.8rem] min-h-[20rem] rounded-2xl shadow-2xl flex p-4">
+  <div
+      class="mb-auto md:my-auto bg-transparent md:bg-white w-[58.8rem] min-h-[20rem] rounded-2xl md:shadow-2xl flex flex-col md:flex-row p-4 max-w-md md:max-w-full">
 
-    <div class="relative">
-      <img src="/images/bg-sidebar-desktop.svg" alt="">
-      <div class="absolute top-0 left-0 bottom-0 right-0 flex flex-col gap-7 px-8 pt-9">
+    <div class="md:relative">
+      <img src="/images/bg-sidebar-desktop.svg" class="md:block hidden" alt="">
+      <img src="/images/bg-sidebar-mobile.svg"
+           class="fixed left-0 right-0 object-cover w-full top-0 md:hidden bg-green-500" alt="">
+      <div
+          class="absolute top-0 left-0 md:bottom-0 right-0 flex flex-row md:flex-col gap-5 md:gap-7 px-8 pt-9 md:justify-start justify-center">
         <div v-for="(step, index) in Steps.keys()" :key="index" class="flex gap-4 items-center">
           <div
               :class="{
@@ -13,23 +17,22 @@
                 }"
               class="h-8 aspect-square border border-light-gray text-sm rounded-full flex items-center justify-center font-bold"
               v-text="index+1"/>
-          <div class="flex flex-col justify-center">
+          <div class="md:flex flex-col justify-center hidden">
             <span class="uppercase text-xs text-cool-gray" v-text="`step ${index+1}`"/>
             <h2 v-text="step" class="uppercase font-medium text-[16px] text-white -mt-0.5"/>
           </div>
         </div>
-
       </div>
     </div>
 
 
-    <div class="flex-1 sm:px-40 md:px-6 lg:px-24 py-8 flex flex-col">
+    <div
+        class="shadow-xl md:shadow-none flex-1 sm:px-5 md:px-8 absolute lg:px-24 py-8 flex flex-col md:bg-transparent px-5 md:px-0 md:rounded-none rounded-lg bg-white relative">
       <transition name="v" mode="out-in">
         <component v-bind:is="Steps.get(StepKeys[form.activeStep - 1])" :key="form.activeStep" v-if="!form.finish"/>
         <step-five v-else/>
       </transition>
-
-      <div class="mt-auto flex" v-if="!form.finish">
+      <div class="mt-auto flex fixed bottom-0 right-0 left-0 bg-white md:p-0 py-3 px-5 md:relative" v-if="!form.finish">
         <button @click="form.activeStep--"
                 class="text-marine-blue h-12 px-6 text-opacity-50 hover:text-opacity-100 outline-none font-medium mr-auto"
                 v-if="form.activeStep > 1">
@@ -46,7 +49,6 @@
         </button>
       </div>
 
-      <pre class="text-xs absolute bottom-2 left-2" v-text="form"></pre>
     </div>
 
 
@@ -125,5 +127,11 @@ function nextStep() {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
+}
+
+
+
+.error-caption {
+  @apply ml-auto font-bold text-strawberry-red;
 }
 </style>

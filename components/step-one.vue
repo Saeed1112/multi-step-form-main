@@ -8,35 +8,38 @@
       <label class="text-sm font-medium text-marine-blue">
         <span class="flex">
           Name
-          <span class="ml-auto font-bold text-strawberry-red" v-if="form.errors.get('name')"
+          <span class="error-caption" v-if="form.errors.get('name')"
                 v-text="form.errors.get('name')"/>
         </span>
         <input v-model="form.name"
                class="block w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
-               type="text" placeholder="Your name">
+               :class="{'border-strawberry-red':form.errors.get('phone') }"
+               type="text" placeholder="e.g. Saeed Akhshijan">
       </label>
 
       <label class="text-sm font-medium text-marine-blue">
         <span class="flex">
           Email Address
-          <span class="ml-auto font-bold text-strawberry-red" v-if="form.errors.get('email')"
+          <span class="error-caption" v-if="form.errors.get('email')"
                 v-text="form.errors.get('email')"/>
         </span>
         <input v-model="form.email"
+               :class="{'border-strawberry-red':form.errors.get('phone') }"
                class="block w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
-               type="email" placeholder="Your name">
+               type="email" placeholder="e.g. sakhshijan@gmail.com">
       </label>
 
 
       <label class="text-sm font-medium text-marine-blue">
         <span class="flex">
           Phone Number
-          <span class="ml-auto font-bold text-strawberry-red" v-if="form.errors.get('phone')"
+          <span class="error-caption" v-if="form.errors.get('phone')"
                 v-text="form.errors.get('phone')"/>
         </span>
         <input v-model="form.phone"
+               :class="{'border-strawberry-red':form.errors.get('phone') }"
                class="block w-full text-base mt-1 outline-none border flex items-center h-12 rounded-md px-3"
-               type="tel" placeholder="eg. +1 234 567 890">
+               type="tel" placeholder="e.g. +1 234 567 890">
       </label>
     </div>
 
@@ -46,9 +49,8 @@
 
 <script setup lang="ts">
 
-import {definePageMeta, useState} from "#imports";
+import {useState} from "#imports";
 
-definePageMeta({name: 'StepOne'})
 const form = useState('form')
 </script>
 

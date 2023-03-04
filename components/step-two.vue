@@ -9,15 +9,16 @@
                 v-if="form.errors.get('plan')"
                 v-text="form.errors.get('plan')"/>
       </div>
-      <div class="flex gap-3">
+      <div class="flex gap-3 flex-col md:flex-row">
+
         <div
-            class="border border-purplish-blue flex-1 py-5 px-5 rounded-lg hover:bg-purplish-blue hover:bg-opacity-5 cursor-pointer"
+            class="border border-purplish-blue md:block flex gap-3 md:flex-1 py-3 md:py-5 px-5 rounded-lg hover:bg-purplish-blue hover:bg-opacity-5 cursor-pointer"
             :class="{'bg-purplish-blue bg-opacity-10': form.plan.name === plan.name}"
             @click="form.plan = plan"
             v-for="plan in plans">
           <img :src="plan.icon" :alt="`Plan - ${plan.name}`">
 
-          <div class="mt-10 flex flex-col gap-1">
+          <div class="md:mt-10 flex flex-col gap-1">
             <h2 class="font-medium text-marine-blue" v-text="plan.name"/>
             <span class="text-sm text-cool-gray ">
             ${{ form.yearly ? plan.monthly * (12 - plan.yearlyOffer) : plan.monthly }}/{{

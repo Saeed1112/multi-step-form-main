@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center flex-col h-full gap-3">
+  <div class="flex items-center justify-center flex-col h-full gap-3 py-10 md:py-0">
     <img src="/images/icon-thank-you.svg" alt="Thank you">
     <h1 class="text-3xl font-bold mt-3 text-marine-blue">Thank you!</h1>
     <p class="text-cool-gray text-center">

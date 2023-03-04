@@ -16,7 +16,7 @@
         </div>
         <div>
           <h2 class="text-marine-blue font-bold" v-text="addon.name"/>
-          <span class="text-cool-gray text-sm" v-text="addon.comment"/>
+          <span class="text-cool-gray text-xs md:text-sm" v-text="addon.comment"/>
         </div>
         <div class="ml-auto text-purplish-blue text-sm font-medium">
           ${{ form.yearly ? addon.monthly * (12 - addon.yearlyOffer) : addon.monthly }}/{{

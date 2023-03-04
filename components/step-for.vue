@@ -23,7 +23,7 @@
 
         <hr>
 
-        <ul class="flex flex-col gap-3">
+        <ul v-if="form.addons.size > 0" class="flex flex-col gap-3">
           <li v-for="[key,addon] in form.addons.entries()" :key="key" class="flex text-sm">
             <span class="text-cool-gray">{{ addon.name }}</span>
             <span class="ml-auto text-marine-blue font-medium">
@@ -33,6 +33,10 @@
             </span>
           </li>
         </ul>
+        <div v-else class="text-sm font-medium text-cool-gray text-center">
+          No Special Addons,
+          <button class="underline" @click="form.activeStep = 3">Add one</button>
+        </div>
 
       </div>
 
@@ -52,11 +56,11 @@ const form: any = useState('form')
 const totalAmount = computed(() => {
   let total = 0;
   const {plan, addons, yearly} = form.value;
-  const planPrice = plan.monthly * (yearly ? 12 - plan.yearlyOffer : plan.monthly);
+  const planPrice = yearly ? plan.monthly * (12 - plan.yearlyOffer) : plan.monthly;
   for (const [key, addon] of addons)
-    total += addon.monthly * (yearly ? 12 - addon.yearlyOffer : addon.monthly);
+    total += yearly ? addon.monthly * (12 - addon.yearlyOffer) : addon.monthly;
 
-  return total + planPrice;
+  return planPrice + total;
 })
 </script>
 
